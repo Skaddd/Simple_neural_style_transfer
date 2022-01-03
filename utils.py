@@ -87,7 +87,7 @@ def clipping_pixel(image):
     return tf.clip_by_value(image, clip_value_min=0.0, clip_value_max=1.0)
 
 
-def save_display_img(tensor_img,should_display = False):
+def save_display_img(tensor_img, output_file, should_display = False):
 
     tensor_img = tensor_img*255.
     tensor_img = np.asarray(tensor_img, dtype = np.uint8)
@@ -96,7 +96,14 @@ def save_display_img(tensor_img,should_display = False):
 
     print(tensor_img.shape)
 
-    return PIL.Image.fromarray(tensor_img)
+    out_image = PIL.Image.fromarray(tensor_img)
+    out_image.save(output_file)
+
+    if should_display:
+        out_image.show()
+
+
+    return 
 
 
 if __name__=="__main__":
