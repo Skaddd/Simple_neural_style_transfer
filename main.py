@@ -12,14 +12,9 @@ import argparse
 
 
 
-#content ca peut etre tout, donc rajputer une selection
-
-
 content_features_index = ['block5_conv2']
 
 style_features_index = ['block1_conv1', 'block2_conv1','block3_conv1','block4_conv1','block5_conv1']
-
-num_content_layers = len(content_features_index)
 
 num_style_layers = len(style_features_index)
 
@@ -93,13 +88,6 @@ def neural_style_transfer(config):
 
         optimizing_img = tf.Variable(content_img)
 
-    else :
-
-        style_img_resized = utils.prepare_image(style_img_path, np.asarray(content_img.shape[2:]))
-
-        optimizing_img = tf.Variable(style_img_resized)
-
-    #On opti une image pas le réseau
     extractor = StyleContentModel(style_features_index,content_features_index)
 
     content_targets =extractor(content_img)['content']
@@ -108,7 +96,7 @@ def neural_style_transfer(config):
     optimizer = tf.keras.optimizers.Adam(learning_rate = 0.02, beta_1=0.99, epsilon=1e-1)
 
 
-    iterations = 100
+    iterations = 1000
 
     for k in range(iterations):
         print(k)
@@ -162,8 +150,8 @@ if __name__=="__main__":
     parser = argparse.ArgumentParser()
 
 
-    parser.add_argument("--content_image_name", type=str, default = 'YellowLabradorLooking_new.jpg')
-    parser.add_argument("--style_image_name", type = str, default = 'kandinsky5.jpg')
+    parser.add_argument("--content_image_name", type=str, default = 'lion1.jpg')
+    parser.add_argument("--style_image_name", type = str, default = 'ben_giles.jpg')
     parser.add_argument("--height", type=int, default = (512,512))
 
 

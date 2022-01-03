@@ -71,7 +71,7 @@ def gram_matrix(input_tensor):
 
 
 
-def total_variation(image):
+def total_variation(image,reduce_mean=False):
 
     """
     Total variation is a measure of the complexity of an image with respect to its spatial varation. 
@@ -79,7 +79,12 @@ def total_variation(image):
     the absolute differences of neighbors pixels.
 
     """
-    return tf.reduce_sum(tf.image.total_variation(image))
+    if reduce_mean:
+        return tf.reduce_mean(tf.image.total_variation(image))
+    
+    else :
+
+        return tf.reduce_sum(tf.image.total_variation(image))
 
 
 
